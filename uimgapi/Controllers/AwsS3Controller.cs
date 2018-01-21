@@ -26,9 +26,22 @@ namespace uimgapi.Controllers
 
         // GET: api/AwsS3
         [HttpGet]
-        public IEnumerable<AwsS3> GetAwsS3()
+        public IEnumerable<AwsS3> GetAwsS3(string searchString)
         {
-            return _context.AwsS3;
+            var images = from image in _context.AwsS3
+                         select image;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                images = images.Where(image => image.UniqueCode.Contains(searchString)
+                                                || image.Name.Contains(searchString)
+                                                || image.Filename.Contains(searchString)
+                                                || image.ApprovalStatus.Contains(searchString)
+                                                || image.EmailStatus.Contains(searchString));
+            }
+
+            return images;
         }
 
         // GET: api/AwsS3/5
@@ -49,6 +62,8 @@ namespace uimgapi.Controllers
 
             return Ok(awsS3);
         }
+
+
 
         // PUT: api/AwsS3/5
         [HttpPut("{id}")]
