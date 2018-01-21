@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  uimgapi:
+    image: uimgapi
+    build:
+      context: .
+      dockerfile: uimgapi/Dockerfile
