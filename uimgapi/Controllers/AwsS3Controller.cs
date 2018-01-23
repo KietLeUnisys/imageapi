@@ -116,7 +116,9 @@ namespace uimgapi.Controllers
             string unquieID = dataArray[1].First.ToString();
             string name = dataArray[2].First.ToString();
 
+
             string link = S3Items.uploadS3Object(imageData, unquieID);
+
 
             if (link != null)
             {

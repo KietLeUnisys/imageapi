@@ -6,16 +6,12 @@ namespace uimgapi.Models
 {
     public partial class s3uploadtestContext : DbContext
     {
+        public s3uploadtestContext(DbContextOptions<s3uploadtestContext> options)
+        : base(options)
+        { }
+
         public virtual DbSet<AwsS3> AwsS3 { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;User Id=root;Password=Password1!;Database=s3uploadtest");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using uimgapi.Models;
 using Amazon.S3;
+using Microsoft.EntityFrameworkCore;
 
 namespace uimgapi
 {
@@ -33,12 +34,12 @@ namespace uimgapi
         {
 
             //Add Identity
-            services.AddDbContext<s3uploadtestContext>();
-
+            services.AddDbContext<s3uploadtestContext>(options=>
+            options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
-
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

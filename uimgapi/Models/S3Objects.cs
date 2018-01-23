@@ -13,7 +13,7 @@ namespace uimgapi.Models
     public class S3Objects
     {
         IAmazonS3 s3Client;
-        string bucketName = "ImageUploadTest";
+        string bucketName = "ujets";
 
 
         public S3Objects(IAmazonS3 client)
@@ -40,13 +40,16 @@ namespace uimgapi.Models
         {
             try
             {
+                //TransferUtility fileTransferUtility = new
+                //        TransferUtility(s3Client);
+
                 TransferUtility fileTransferUtility = new
-                        TransferUtility(s3Client);
+                        TransferUtility();
 
                 var bytes = Convert.FromBase64String(fileb64Str);
                 var contents = new MemoryStream(bytes);
                 fileTransferUtility.Upload(contents, bucketName, keyName);
-                string link = string.Format(@"https://s3.amazonaws.com/{0}/{1}", bucketName,keyName);
+                string link = string.Format(@"https://{0}.s3.us-east-2.amazonaws.com/{1}", bucketName,keyName);
                 return link;
             }
 
